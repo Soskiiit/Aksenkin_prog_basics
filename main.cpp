@@ -1,71 +1,81 @@
 #include <iostream>
-#include <string>
 
+namespace {
+const int minMinutes = 0;
+const int minHours = 0;
 const int morningStart = 5;
-const int ten = 10;
-const int eleven = 11;
-const int halfOfDay = 12;
-const int fourteen = 14;
-const int dayEveningJoint = 18;
+const int numericBase = 10;
+const int startOfExceptionNums = 11;
+const int halfADay = 12;
+const int endOfExceptionNums = 14;
+const int eveningStart = 18;
 const int maxHour = 23;
-const int maxMinute = 59;
+const int maxMinutes = 59;
+}  // namespace
 
 int main(int, char**) {
-    int twFourFormatHours = 0;
+    int twentyFourFormatHours = 0;
     int hours = 0;
     int minutes = 0;
-    std::cin >> twFourFormatHours >> minutes;
-    if (twFourFormatHours < 0 || twFourFormatHours > maxHour || minutes < 0 || minutes >= maxMinute) {
+    std::cout << "Введите время (часы и минуты через пробел)\n";
+    std::cin >> twentyFourFormatHours >> minutes;
+    if (twentyFourFormatHours < minHours || twentyFourFormatHours > maxHour || minutes < minMinutes || minutes >= maxMinutes) {
         std::cout << "Введено недопустимое время" << std::endl;
         return 0;
     }
-    // отлавливаем частные случаи
-    if (twFourFormatHours == 0 && minutes == 0) {
+
+    if (twentyFourFormatHours == minHours && minutes == minMinutes) {
         std::cout << "полночь" << std::endl;
         return 0;
     }
-    if (twFourFormatHours == halfOfDay && minutes == 0) {
+    if (twentyFourFormatHours == halfADay && minutes == minMinutes) {
         std::cout << "полдень" << std::endl;
         return 0;
     }
-    std::string partOfDay;
-    std::string hoursLiteral;
-    std::string minutesLiteral;
-    if (morningStart <= twFourFormatHours && twFourFormatHours <= eleven) {
-        partOfDay = "утра";
-    } else if (halfOfDay <= twFourFormatHours && twFourFormatHours <= dayEveningJoint) {
-        partOfDay = "дня";
-    } else if (dayEveningJoint <= twFourFormatHours && twFourFormatHours <= maxHour) {
-        partOfDay = "вечера";
+
+    hours = twentyFourFormatHours % halfADay;
+    if (twentyFourFormatHours == halfADay) {
+        std::cout << "12";
     } else {
-        partOfDay = "ночи";
+        std::cout << hours;
     }
-    hours = twFourFormatHours % halfOfDay;
+
     if (hours == 1) {
-        hoursLiteral = "час";
+        std::cout << " час";
     } else if (0 < hours && hours <= 4) {
-        hoursLiteral = "часа";
+        std::cout << " часа";
     } else {
-        hoursLiteral = "часов";
+        std::cout << " часов";
     }
-    if (minutes == 0) {
-        std::cout << hours << " " << hoursLiteral << " " << partOfDay << " ровно\n";
-        return 0;
+
+    if (minutes != 0) {
+        std::cout << " " << minutes;
+        int lastDigit = minutes % numericBase;
+        if (((startOfExceptionNums <= minutes && minutes <= endOfExceptionNums) || lastDigit == 0) && minutes != minMinutes) {
+            std::cout << " минут";
+        } else if (lastDigit == 1) {
+            std::cout << " минута";
+        } else if (lastDigit == 2 || lastDigit == 3 || lastDigit == 4) {
+            std::cout << " минуты";
+        } else {
+            std::cout << " минут";
+        }
     }
-    int lastDigit = minutes % ten;
-    if ((eleven <= minutes && minutes <= fourteen) || lastDigit == 0) {
-        minutesLiteral = "минут";
-    } else if (lastDigit == 1) {
-        minutesLiteral = "минута";
-    } else if (lastDigit == 2 || lastDigit == 3 || lastDigit == 4) {
-        minutesLiteral = "минуты";
+
+    if (morningStart <= twentyFourFormatHours && twentyFourFormatHours < halfADay) {
+        std::cout << " утра";
+    } else if (halfADay <= twentyFourFormatHours && twentyFourFormatHours < eveningStart) {
+        std::cout << " дня";
+    } else if (eveningStart <= twentyFourFormatHours && twentyFourFormatHours <= maxHour) {
+        std::cout << " вечера";
     } else {
-        minutesLiteral = "минут";
+        std::cout << " ночи";
     }
-    if (twFourFormatHours == halfOfDay) {
-        std::cout << "12 " << hoursLiteral << " " << minutes << " " << minutesLiteral << " " << partOfDay << std::endl;
-    } else {
-        std::cout << hours << " " << hoursLiteral << " " << minutes << " " << minutesLiteral << " " << partOfDay << std::endl;
+
+    if (minutes == minMinutes) {
+        std::cout << " ровно";
     }
+    std::cout << std::endl;
+
     return 0;
 }
