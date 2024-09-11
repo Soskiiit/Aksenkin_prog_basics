@@ -7,6 +7,11 @@ const int morningStart = 5;
 const int numericBase = 10;
 const int startOfExceptionNums = 11;
 const int halfADay = 12;
+const int middayHours = 12;
+const int middayMinutes = 0;
+const int midnightHours = 0;
+const int aOnEndOfWordEnd = 4;
+const int midnightMinutes = 0;
 const int endOfExceptionNums = 14;
 const int eveningStart = 18;
 const int maxHour = 23;
@@ -17,18 +22,28 @@ int main(int, char**) {
     int twentyFourFormatHours = 0;
     int hours = 0;
     int minutes = 0;
+    bool invalidInput = false;
+
     std::cout << "Введите время (часы и минуты через пробел)\n";
     std::cin >> twentyFourFormatHours >> minutes;
-    if (twentyFourFormatHours < minHours || twentyFourFormatHours > maxHour || minutes < minMinutes || minutes >= maxMinutes) {
-        std::cout << "Введено недопустимое время" << std::endl;
-        return 0;
+
+    if (twentyFourFormatHours < minHours || twentyFourFormatHours > maxHour) {
+        std::cout << "Столько часов не бывает!" << std::endl;
+        invalidInput = true;
+    }
+    if (minutes < minMinutes || minutes >= maxMinutes) {
+        std::cout << "Столько минут не бывает!" << std::endl;
+        invalidInput = true;
+    }
+    if (invalidInput) {
+        return 1;
     }
 
-    if (twentyFourFormatHours == minHours && minutes == minMinutes) {
+    if (twentyFourFormatHours == midnightHours && minutes == midnightMinutes) {
         std::cout << "полночь" << std::endl;
         return 0;
     }
-    if (twentyFourFormatHours == halfADay && minutes == minMinutes) {
+    if (twentyFourFormatHours == middayHours && minutes == middayMinutes) {
         std::cout << "полдень" << std::endl;
         return 0;
     }
@@ -42,16 +57,18 @@ int main(int, char**) {
 
     if (hours == 1) {
         std::cout << " час";
-    } else if (0 < hours && hours <= 4) {
+    } else if (hours <= aOnEndOfWordEnd) {
         std::cout << " часа";
     } else {
         std::cout << " часов";
     }
 
-    if (minutes != 0) {
+    if (minutes != minMinutes) {
         std::cout << " " << minutes;
         int lastDigit = minutes % numericBase;
-        if (((startOfExceptionNums <= minutes && minutes <= endOfExceptionNums) || lastDigit == 0) && minutes != minMinutes) {
+        if (startOfExceptionNums <= minutes && minutes <= endOfExceptionNums) {
+            std::cout << " минут";
+        } else if (lastDigit == 0) {
             std::cout << " минут";
         } else if (lastDigit == 1) {
             std::cout << " минута";
