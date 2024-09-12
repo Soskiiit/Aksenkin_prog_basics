@@ -3,19 +3,24 @@
 namespace {
 const int minMinutes = 0;
 const int minHours = 0;
-const int morningStart = 5;
-const int numericBase = 10;
-const int startOfExceptionNums = 11;
+const int maxHour = 23;
+const int maxMinutes = 59;
+
 const int halfADay = 12;
+const int numericBase = 10;
+
+const int morningStart = 5;
+const int eveningStart = 18;
+
 const int middayHours = 12;
 const int middayMinutes = 0;
 const int midnightHours = 0;
-const int aOnEndOfWordEnd = 4;
 const int midnightMinutes = 0;
+
+const int startOfExceptionNums = 11;
 const int endOfExceptionNums = 14;
-const int eveningStart = 18;
-const int maxHour = 23;
-const int maxMinutes = 59;
+const int aOnEndOfWordEnd = 4;
+const int singular = 1;
 }  // namespace
 
 int main(int, char**) {
@@ -31,7 +36,7 @@ int main(int, char**) {
         std::cout << "Столько часов не бывает!" << std::endl;
         invalidInput = true;
     }
-    if (minutes < minMinutes || minutes >= maxMinutes) {
+    if (minutes < minMinutes || minutes > maxMinutes) {
         std::cout << "Столько минут не бывает!" << std::endl;
         invalidInput = true;
     }
@@ -55,7 +60,7 @@ int main(int, char**) {
         std::cout << hours;
     }
 
-    if (hours == 1) {
+    if (hours == singular) {
         std::cout << " час";
     } else if (hours <= aOnEndOfWordEnd) {
         std::cout << " часа";
