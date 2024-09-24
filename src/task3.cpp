@@ -1,3 +1,7 @@
+#include <cmath>
+#include <iomanip>
+#include <iostream>
+
 #include "../include/main.h"
 
 namespace {

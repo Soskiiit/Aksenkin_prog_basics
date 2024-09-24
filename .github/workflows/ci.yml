@@ -5,18 +5,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: g++ -std=c++20 -Wall -Wextra -Werror -Wpedantic *.cpp
+      - run: g++ -std=c++20 -Wall -Wextra -Werror -Wpedantic ./src/*.cpp ./include/*.h
 
   clang-format:
     runs-on: ubuntu-latest
     container: ghcr.io/cpp-linter/clang-tools:18
     steps:
     - uses: actions/checkout@v4
-    - run: clang-format --dry-run -Werror *.cpp
+    - run: clang-format --dry-run -Werror ./src/*.cpp ./include/*.h
 
   clang-tidy:
     runs-on: ubuntu-latest
     container: ghcr.io/cpp-linter/clang-tools:18
     steps:
     - uses: actions/checkout@v4
-    - run: clang-tidy *.cpp
+    - run: clang-tidy ./src/*.cpp ./include/*.h

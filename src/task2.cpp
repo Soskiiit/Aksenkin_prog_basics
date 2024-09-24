@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "../include/main.h"
 
 namespace {

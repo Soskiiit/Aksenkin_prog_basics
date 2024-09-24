@@ -1,5 +1,7 @@
 #include "../include/main.h"
 
+#include <iostream>
+
 int main(int, char**) {
     int check = 0;
     while (true) {
