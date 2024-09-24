@@ -1,5 +1,4 @@
-#include <iostream>
-#include "main.h"
+#include "../include/main.h"
 
 namespace {
 const int kFirstChickpoit = 3;
@@ -28,11 +27,10 @@ void calculateAndPrint(double x, int n) {
     }
 }
 
-int runFourthTask(int, char**) {
+void runFourthTask() {
     double x = 0;
     int n = 0;
     std::cout << "Введите числа x и n через пробел: ";
     std::cin >> x >> n;
     calculateAndPrint(x, n);
-    return 0;
 }

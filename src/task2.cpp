@@ -1,5 +1,4 @@
-#include <cmath>
-#include <iostream>
+#include "../include/main.h"
 
 namespace {
 const int kStartSequenceNegative = 3;
@@ -11,7 +10,7 @@ const int kEndSequenceNonNegative = 8;
 const int kStepSequenceNonNegative = 2;
 
 const int kMinNonNegativeNumber = 0;
-}
+}  // namespace
 
 double productIfNegative() {
     double answer = 1;
@@ -29,8 +28,8 @@ double productIfNonNegative(double a) {
     return answer;
 }
 
-int main(int, char**) {
-    double a;
+void runSecondTask() {
+    double a = 0;
     std::cout << "Введите число а: ";
     std::cin >> a;
     std::cout << "Сумма ряда S равна: ";
@@ -39,5 +38,4 @@ int main(int, char**) {
     } else {
         std::cout << productIfNonNegative(a) << std::endl;
     }
-    return 0;
 }
