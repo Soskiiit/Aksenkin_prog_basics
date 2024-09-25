@@ -68,11 +68,10 @@ int main(int, char**) {
     if (kMinMinutes != minutes) {
         std::cout << " " << minutes;
         int lastDigit = minutes % kDecimalNumericBase;
-        if (lastDigit == kNominativeSingularMinutes &&
-            (minutes < kStartGenitivePluralMinutes || minutes > kEndGenitivePluralMinutes)) {
+        if (lastDigit == kNominativeSingularMinutes && (minutes < kStartGenitivePluralMinutes || minutes > kEndGenitivePluralMinutes)) {
             std::cout << " минута";
-        } else if (lastDigit >= kStartOfGenitivePlural && lastDigit <= kEndOfGenitivePlural &&
-                   minutes < kStartGenitivePluralMinutes && minutes > kEndGenitivePluralMinutes) {
+        } else if ((lastDigit >= kStartOfGenitivePlural && lastDigit <= kEndOfGenitivePlural) ||
+                   (minutes < kStartGenitivePluralMinutes && minutes > kEndGenitivePluralMinutes)) {
             std::cout << " минуты";
         } else {
             std::cout << " минут";
