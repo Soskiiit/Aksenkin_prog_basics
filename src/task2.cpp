@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "../include/main.h"
+#include "task2.h"
 
 namespace {
 const int kStartSequenceNegative = 3;
@@ -12,9 +12,9 @@ const int kEndSequenceNonNegative = 8;
 const int kStepSequenceNonNegative = 2;
 
 const int kMinNonNegativeNumber = 0;
-}  // namespace
 
-double productIfNegative() {
+
+double ProductIfNegative() {
     double answer = 1;
     for (int i = kStartSequenceNegative; i <= kEndSequenceNegative; i += kStepSequenceNegative) {
         answer *= i - 2;
@@ -22,22 +22,23 @@ double productIfNegative() {
     return answer;
 }
 
-double productIfNonNegative(double a) {
+double ProductIfNonNegative(double a) {
     double answer = 1;
     for (int i = kStartSequenceNonNegative; i <= kEndSequenceNonNegative; i += kStepSequenceNonNegative) {
-        answer *= i * i - a;
+        answer *= i * i - a;    
     }
     return answer;
 }
+}  // namespace
 
-void runSecondTask() {
+void RunSecondTask() {
     double a = 0;
     std::cout << "Введите число а: ";
     std::cin >> a;
     std::cout << "Сумма ряда S равна: ";
     if (a < kMinNonNegativeNumber) {
-        std::cout << productIfNegative() << std::endl;
+        std::cout << ProductIfNegative() << std::endl;
     } else {
-        std::cout << productIfNonNegative(a) << std::endl;
+        std::cout << ProductIfNonNegative(a) << std::endl;
     }
 }
