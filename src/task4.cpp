@@ -10,11 +10,11 @@ const int kThirdCheckpoint = 10;
 void CalculateAndPrint(double x, int n) {
     double answer = 1;
     double lastTerm = 1;
-    for (int i = 1; i < n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         lastTerm *= x * x / (2 * i) / (2 * i - 1) * -1;
         answer += lastTerm;
-        if (i + 1 == kFirstCheckpoint || i + 1 == kSecondCheckpoint || i + 1 == kThirdCheckpoint) {
-            std::cout << "n = " << i + 1 << "\tresult = " << answer << std::endl;
+        if (i == kFirstCheckpoint || i == kSecondCheckpoint || i == kThirdCheckpoint) {
+            std::cout << "n = " << i << "\tresult = " << answer << std::endl;
         }
     }
     std::cout << "Final result = " << answer << std::endl;
