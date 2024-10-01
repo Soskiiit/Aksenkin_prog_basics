@@ -1,6 +1,6 @@
-#include <iostream>
-
 #include "task1.h"
+
+#include <iostream>
 
 namespace {
 const int kStartOfSequence = 1;

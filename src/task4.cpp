@@ -1,12 +1,11 @@
-#include <iostream>
-
 #include "task4.h"
+
+#include <iostream>
 
 namespace {
 const int kFirstCheckpoint = 3;
 const int kSecondCheckpoint = 5;
 const int kThirdCheckpoint = 10;
-
 
 void CalculateAndPrint(double x, int n) {
     double answer = 1;

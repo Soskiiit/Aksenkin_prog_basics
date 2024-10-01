@@ -1,8 +1,8 @@
+#include "task3.h"
+
 #include <cmath>
 #include <iomanip>
 #include <iostream>
-
-#include "task3.h"
 
 namespace {
 const double kEps = 1e-6;

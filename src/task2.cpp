@@ -1,6 +1,6 @@
-#include <iostream>
-
 #include "task2.h"
+
+#include <iostream>
 
 namespace {
 const int kStartSequenceNegative = 3;
@@ -13,7 +13,6 @@ const int kStepSequenceNonNegative = 2;
 
 const int kMinNonNegativeNumber = 0;
 
-
 double ProductIfNegative() {
     double answer = 1;
     for (int i = kStartSequenceNegative; i <= kEndSequenceNegative; i += kStepSequenceNegative) {
@@ -25,7 +24,7 @@ double ProductIfNegative() {
 double ProductIfNonNegative(double a) {
     double answer = 1;
     for (int i = kStartSequenceNonNegative; i <= kEndSequenceNonNegative; i += kStepSequenceNonNegative) {
-        answer *= i * i - a;    
+        answer *= i * i - a;
     }
     return answer;
 }
