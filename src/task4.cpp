@@ -14,10 +14,10 @@ void CalculateAndPrint(double x, int n) {
         lastTerm *= x * x / (2 * i) / (2 * i - 1) * -1;
         answer += lastTerm;
         if (i == kFirstCheckpoint || i == kSecondCheckpoint || i == kThirdCheckpoint) {
-            std::cout << "n = " << i << "\tresult = " << answer << std::endl;
+            std::cout << "n = " << i << "\tрезультат = " << answer << std::endl;
         }
     }
-    std::cout << "Final result = " << answer << std::endl;
+    std::cout << "Итоговый результат = " << answer << std::endl;
 }
 }  // namespace
 
@@ -26,5 +26,8 @@ void RunFourthTask() {
     int n = 0;
     std::cout << "Введите числа x и n через пробел: ";
     std::cin >> x >> n;
+    if (n < 1) {
+        throw std::invalid_argument("Число n должно быть натуральным!");
+    }
     CalculateAndPrint(x, n);
 }

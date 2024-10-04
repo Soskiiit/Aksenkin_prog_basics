@@ -7,7 +7,7 @@
 
 int main(int, char**) {
     int taskNumber = 1;
-    while (taskNumber) {
+    while (taskNumber != 0) {
         std::cout << "Введите номер задачи, чтобы запустить её или 0, чтобы выйти\n"
                   << "1-я задача: Подсчёт суммы на [1;n] чисел кратных 5 и не кратных m\n"
                   << "2-я задача: Подсчёт по формуле\n"
@@ -16,7 +16,11 @@ int main(int, char**) {
         std::cin >> taskNumber;
         switch (taskNumber) {
             case 1:
-                RunFirstTask();
+                try {
+                    RunFirstTask();
+                } catch (const std::invalid_argument& e) {
+                    std::cout << e.what() << std::endl;
+                }
                 break;
             case 2:
                 RunSecondTask();
@@ -25,7 +29,11 @@ int main(int, char**) {
                 RunThirdTask();
                 break;
             case 4:
-                RunFourthTask();
+                try {
+                    RunFourthTask();
+                } catch (const std::invalid_argument& e) {
+                    std::cout << e.what() << std::endl;
+                }
                 break;
             case 0:
                 std::cout << "Завершение\n";
@@ -33,6 +41,7 @@ int main(int, char**) {
             default:
                 std::cout << "Такой задачи нет\n";
         }
+        std::cout << std::endl;
     }
     return 0;
 }

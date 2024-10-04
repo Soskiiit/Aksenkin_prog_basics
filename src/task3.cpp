@@ -30,11 +30,13 @@ CalculateResult CalculateTaylorSeries(double x, double eps = kEps) {
 }  // namespace
 
 void RunThirdTask() {
-    std::cout << "              x         sin(x)         Taylor              N\n";
-    for (int x = 0; x <= kStepCount; ++x) {
-        CalculateResult taylorResult{0, 0};
+    std::cout << std::setw(kMargin) << "x" << std::setw(kMargin) << "sin(x)" << std::setw(kMargin) << "Taylor" << std::setw(kMargin) << "N\n";
+    float x = 0;
+    while (x <= 1) {
+        CalculateResult taylorResult{0};
         taylorResult = CalculateTaylorSeries(x * kStep);
         std::cout << std::setw(kMargin) << std::fixed << std::setprecision(kPrintPrecision) << x * kStep << std::setw(kMargin) << std::sin(x * kStep)
                   << std::setw(kMargin) << taylorResult.sin << std::setw(kMargin) << taylorResult.n << std::endl;
+        x += kStep;
     }
 }

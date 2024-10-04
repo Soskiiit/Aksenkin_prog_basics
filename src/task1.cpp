@@ -3,13 +3,13 @@
 #include <iostream>
 
 namespace {
-const int kStartOfSequence = 1;
+const int kStartOfSequence = 5;
 const int kDivisor = 5;
 
-long calculateSumFirstTerms(int n, int m) {
+int CalculateSumFirstTerms(int n, int m) {
     int sumOfSeries = 0;
-    for (int i = kStartOfSequence; i <= n; ++i) {
-        if (i % m != 0 && i % kDivisor == 0) {
+    for (int i = kStartOfSequence; i <= n; i += kDivisor) {
+        if (i % m != 0) {
             sumOfSeries += i;
         }
     }
@@ -22,5 +22,9 @@ void RunFirstTask() {
     int m = 0;
     std::cout << "Введите числа n и m через пробел: ";
     std::cin >> n >> m;
-    std::cout << calculateSumFirstTerms(n, m) << '\n';
+    if (n <= m) {
+            throw std::invalid_argument("Число m должно быть меньше числа n!");
+    } else {
+        std::cout << CalculateSumFirstTerms(n, m) << '\n';
+    }
 }
