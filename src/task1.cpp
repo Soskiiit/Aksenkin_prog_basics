@@ -14,7 +14,7 @@ int CalculateSumFirstTerms(int n, int m) {
         }
     }
     return sumOfSeries;
-}   
+}
 }  // namespace
 
 void RunFirstTask() {
