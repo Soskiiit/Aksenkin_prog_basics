@@ -31,9 +31,9 @@ CalculateResult CalculateTaylorSeries(double x, double eps = kEps) {
 
 void RunThirdTask() {
     std::cout << std::setw(kMargin) << "x" << std::setw(kMargin) << "sin(x)" << std::setw(kMargin) << "Taylor" << std::setw(kMargin) << "N\n";
-    float x = 0;
+    double x = 0;
     while (x <= 1) {
-        CalculateResult taylorResult{0};
+        CalculateResult taylorResult{0, 0};
         taylorResult = CalculateTaylorSeries(x * kStep);
         std::cout << std::setw(kMargin) << std::fixed << std::setprecision(kPrintPrecision) << x * kStep << std::setw(kMargin) << std::sin(x * kStep)
                   << std::setw(kMargin) << taylorResult.sin << std::setw(kMargin) << taylorResult.n << std::endl;

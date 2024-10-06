@@ -14,7 +14,7 @@ int CalculateSumFirstTerms(int n, int m) {
         }
     }
     return sumOfSeries;
-}
+}   
 }  // namespace
 
 void RunFirstTask() {
@@ -23,7 +23,7 @@ void RunFirstTask() {
     std::cout << "Введите числа n и m через пробел: ";
     std::cin >> n >> m;
     if (n <= m) {
-            throw std::invalid_argument("Число m должно быть меньше числа n!");
+        throw std::invalid_argument("Число m должно быть меньше числа n!");
     } else {
         std::cout << CalculateSumFirstTerms(n, m) << '\n';
     }
