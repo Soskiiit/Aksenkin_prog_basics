@@ -12,11 +12,11 @@ jobs:
     container: ghcr.io/cpp-linter/clang-tools:18
     steps:
     - uses: actions/checkout@v4
-    - run: clang-format --dry-run -Werror *.cpp *.h *.hpp
+    - run: clang-format --dry-run -Werror ./src/*.cpp ./include/*.h
 
   clang-tidy:
     runs-on: ubuntu-latest
     container: ghcr.io/cpp-linter/clang-tools:18
     steps:
     - uses: actions/checkout@v4
-    - run: clang-tidy *.cpp
+    - run: clang-tidy ./src/*.cpp -- -I./include
