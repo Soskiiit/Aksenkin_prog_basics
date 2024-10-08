@@ -3,7 +3,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 project(prog_basics)
 
-SET(PROJECT_SOURCES
+set(PROJECT_SOURCES
         ${PROJECT_SOURCE_DIR}/src/task1.cpp
         ${PROJECT_SOURCE_DIR}/src/task2.cpp
         ${PROJECT_SOURCE_DIR}/src/task3.cpp
@@ -11,7 +11,7 @@ SET(PROJECT_SOURCES
         ${PROJECT_SOURCE_DIR}/src/main.cpp
 )
 
-SET(PROJECT_HEADERS
+set(PROJECT_HEADERS
         include/task2.h
         include/task3.h
         include/task4.h

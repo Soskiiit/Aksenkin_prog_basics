@@ -3,27 +3,28 @@
 #include <iostream>
 
 namespace {
-const int kStartSequenceNegative = 3;
-const int kEndSequenceNegative = 9;
-const int kStepSequenceNegative = 3;
+const int kStartSequenceNegativeA = 3;
+const int kEndSequenceNegativeA = 9;
+const int kStepSequenceNegativeA = 3;
 
-const int kStartSequenceNonNegative = 2;
-const int kEndSequenceNonNegative = 8;
-const int kStepSequenceNonNegative = 2;
+const int kStartSequenceNonNegativeA = 2;
+const int kEndSequenceNonNegativeA = 8;
+const int kStepSequenceNonNegativeA = 2;
 
 const int kMinNonNegativeNumber = 0;
 
-double ProductIfNegative() {
+double ProductIfNegativeA() {
     double answer = 1;
-    for (int i = kStartSequenceNegative; i <= kEndSequenceNegative; i += kStepSequenceNegative) {
-        answer *= i - 2;
+    for (int i = kStartSequenceNegativeA; i <= kEndSequenceNegativeA; i += kStepSequenceNegativeA) {
+        answer *= i;
     }
+    answer -= 2;
     return answer;
 }
 
-double ProductIfNonNegative(double a) {
+double ProductIfNonNegativeA(double a) {
     double answer = 1;
-    for (int i = kStartSequenceNonNegative; i <= kEndSequenceNonNegative; i += kStepSequenceNonNegative) {
+    for (int i = kStartSequenceNonNegativeA; i <= kEndSequenceNonNegativeA; i += kStepSequenceNonNegativeA) {
         answer *= i * i - a;
     }
     return answer;
@@ -36,8 +37,8 @@ void RunSecondTask() {
     std::cin >> a;
     std::cout << "Сумма ряда S равна: ";
     if (a < kMinNonNegativeNumber) {
-        std::cout << ProductIfNegative() << std::endl;
+        std::cout << ProductIfNegativeA() << std::endl;
     } else {
-        std::cout << ProductIfNonNegative(a) << std::endl;
+        std::cout << ProductIfNonNegativeA(a) << std::endl;
     }
 }

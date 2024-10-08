@@ -24,7 +24,6 @@ void RunFirstTask() {
     std::cin >> n >> m;
     if (n <= m) {
         throw std::invalid_argument("Число m должно быть меньше числа n!");
-    } else {
-        std::cout << CalculateSumFirstTerms(n, m) << '\n';
     }
+    std::cout << CalculateSumFirstTerms(n, m) << '\n';
 }
