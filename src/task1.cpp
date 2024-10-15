@@ -22,6 +22,9 @@ void RunFirstTask() {
     int m = 0;
     std::cout << "Введите числа n и m через пробел: ";
     std::cin >> n >> m;
+    if (n < 1 || m < 1) {
+        throw std::invalid_argument("Числа m и n должны быть натуральными");
+    }
     if (n <= m) {
         throw std::invalid_argument("Число m должно быть меньше числа n!");
     }

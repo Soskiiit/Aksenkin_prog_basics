@@ -16,17 +16,17 @@ const int kMinNonNegativeNumber = 0;
 double ProductIfNegativeA() {
     double answer = 1;
     for (int i = kStartSequenceNegativeA; i <= kEndSequenceNegativeA; i += kStepSequenceNegativeA) {
-        answer *= i;
+        answer *= i - 2;
     }
-    answer -= 2;
     return answer;
 }
 
 double ProductIfNonNegativeA(double a) {
     double answer = 1;
     for (int i = kStartSequenceNonNegativeA; i <= kEndSequenceNonNegativeA; i += kStepSequenceNonNegativeA) {
-        answer *= i * i - a;
+        answer *= i * i;
     }
+    answer -= a;
     return answer;
 }
 }  // namespace

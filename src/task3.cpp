@@ -7,7 +7,8 @@
 namespace {
 const double kEps = 1e-6;
 const double kStep = 0.2;
-const int kPrintPrecision = 6;
+const int kResultPrintPrecision = 6;
+const int kXPrintPrecision = 1;
 const int kColumnWidth = 15;
 
 struct CalculationResult {
@@ -29,13 +30,15 @@ CalculationResult CalculateTaylorSeries(double x, double eps = kEps) {
 }  // namespace
 
 void RunThirdTask() {
-    std::cout << std::setw(kColumnWidth) << "x" << std::setw(kColumnWidth) << "sin(x)" << std::setw(kColumnWidth) << "Taylor" << std::setw(kColumnWidth) << "N" << std::endl;
+    std::cout << std::setw(kColumnWidth) << "x" << std::setw(kColumnWidth) << "sin(x)" << std::setw(kColumnWidth) << "Taylor"
+              << std::setw(kColumnWidth) << "N" << std::endl;
 
     double x = 0;
     while (x <= 1) {
         CalculationResult taylorResult = CalculateTaylorSeries(x);
-        std::cout << std::setw(kColumnWidth) << std::fixed << std::setprecision(kPrintPrecision) << x << std::setw(kColumnWidth) << std::sin(x)
-                  << std::setw(kColumnWidth) << taylorResult.sin << std::setw(kColumnWidth) << taylorResult.n << std::endl;
+        std::cout << std::setw(kColumnWidth) << std::fixed << std::setprecision(kXPrintPrecision) << x << std::setw(kColumnWidth)
+                  << std::setprecision(kResultPrintPrecision) << std::sin(x) << std::setw(kColumnWidth) << taylorResult.sin << std::setw(kColumnWidth)
+                  << taylorResult.n << std::endl;
         x += kStep;
     }
 }
