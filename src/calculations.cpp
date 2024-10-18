@@ -1,58 +1,71 @@
 #include "calculations.h"
 
 #include <cmath>
+#include <iostream>
 
 namespace {
-const double delta = 1e-12;
+const int maxIterations = 10'000;
+const long double initialX = 0.7;
 
-double function(double x) {
-    return x - std::cos(x);
+long double function(long double x, long double k) {
+    return x - k * std::cos(x);
 }
 
-double derivative(double (*func)(double x), double x, double dx = delta) {
-    double dy = func(x + dx) - func(x);
-    return dy / dx;
+long double calculateDerivative(long double x, long double k) {
+    return 1 - k * std::sin(x);
 }
 }  // namespace
 
 namespace calculations {
-// x - cos(x) = 0 --> x = cos(x); cos(x) ∈ [-1; 1] --> x ∈ [-1; 1] --> l = -1; r = 1;
-double binaryCalculations(double precision) {
-    double l = -1;
-    double r = 1;
-    double mid = 0;
-    while (r - l > precision) {
+result binaryCalculations(long double l, long double r, long double k, long double accuracy) {
+    std::cout << accuracy << std::endl;
+    long double mid = 0;
+    int n = 0;
+    while (r - l > accuracy) {
         mid = (r + l) / 2;
-        if (function((l + r) / 2) == 0) {
-            return (l + r) / 2;
-        }
-        if (function(l) < 0 && function(mid) > 0) {
-            r = (l + r) / 2;
+        ++n;
+        if (function(l, k) < 0 && function(mid, k) > 0) {
+            r = mid;
         } else {
-            l = (l + r) / 2;
+            l = mid;
         }
     }
-    return (l + r) / 2;
+    if (std::abs(function(mid, k)) > accuracy * k) {
+        throw std::runtime_error("В заданном диапазоне нет решений");
+    }
+    return {mid, n};
 }
 
-double newtonsMethod(double precision) {
-    double prev_x = 0;
-    double x = 1;
-    while (std::abs(x - prev_x) > precision) {
+result newtonsMethod(long double k, long double accuracy) {
+    int n = 0;
+    long double prev_x = 0;
+    long double x = initialX;
+    while (std::abs(x - prev_x) > accuracy) {
         prev_x = x;
-        x = x + function(x) / -derivative(function, x);
+        long double derivative = calculateDerivative(x, k);
+        long double y = function(x, k);
+        x += y / -derivative;
+        ++n;
+        if (n == maxIterations) {
+            return {NAN, 0};
+        }
     }
-    return x;
+    return {x, n};
 }
 
-// x - cos(x) = 0 --> x = cos(x)
-double iterativeMethod(double delta) {
-    double prev_x = 0;
-    double x = 1;
-    while (std::abs(prev_x - x) > delta) {
+// x - k*cos(x) = 0 --> x = k*cos(x)
+result iterativeMethod(long double k, long double accuracy) {
+    int n = 0;
+    long double prev_x = 0;
+    long double x = initialX;
+    while (std::abs(prev_x - x) > accuracy) {
         prev_x = x;
-        x = std::cos(x);
+        x = k * std::cos(x);
+        ++n;
+        if (n == maxIterations) {
+            return {NAN, 0};
+        }
     }
-    return x;
+    return {x, n};
 }
 }  // namespace calculations

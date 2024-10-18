@@ -4,11 +4,15 @@ set(CMAKE_CXX_STANDARD 20)
 project(prog_basics)
 
 SET(PROJECT_SOURCES
-        ${PROJECT_SOURCE_DIR}/src/main.cpp
-        ${PROJECT_SOURCE_DIR}/src/calculations.cpp
+        src/main.cpp
+        src/calculations.cpp
+        src/methods.cpp
 )
 
-SET(PROJECT_HEADERS )
+SET(PROJECT_HEADERS
+        include/calculations.h
+        include/methods.h
+)
 
 add_executable(prog_basics
         ${PROJECT_SOURCES}
