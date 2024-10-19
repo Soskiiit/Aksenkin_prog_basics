@@ -29,19 +29,27 @@ void selectMethodAndRun() {
 
         switch (method) {
             case Method::NewthonsMethod:
-                methods::newtons_method(k, precision);
+                try {
+                    methods::newtons_method(k, precision);
+                } catch (const std::runtime_error& e) {
+                    std::cout << e.what() << std::endl;
+                }
                 break;
             case Method::BinaryMethod:
                 try {
                     methods::binary_method(k, precision);
                 } catch (const std::invalid_argument& e) {
                     std::cout << e.what() << std::endl;
-                } catch (const std::system_error& e) {
+                } catch (const std::runtime_error& e) {
                     std::cout << e.what() << std::endl;
                 }
                 break;
             case Method::IterativeMethod:
-                methods::iterative_method(k, precision);
+                try {
+                    methods::iterative_method(k, precision);
+                } catch (const std::runtime_error& e) {
+                    std::cout << e.what() << std::endl;
+                }
                 break;
             default:
                 std::cout << "Такого метода нет\n";

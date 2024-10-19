@@ -7,12 +7,12 @@ namespace {
 const int maxIterations = 10'000;
 const long double initialX = 0.7;
 
-long double function(long double x, long double k) {
+[[nodiscard]] long double function(long double x, long double k) {
     return x - k * std::cos(x);
 }
 
-long double calculateDerivative(long double x, long double k) {
-    return 1 - k * std::sin(x);
+[[nodiscard]] long double calculateDerivative(long double x, long double k) {
+    return 1 + k * std::sin(x);
 }
 }  // namespace
 
@@ -47,7 +47,7 @@ result newtonsMethod(long double k, long double accuracy) {
         x += y / -derivative;
         ++n;
         if (n == maxIterations) {
-            return {NAN, 0};
+            throw std::runtime_error("Не удалось найти решение");
         }
     }
     return {x, n};
@@ -63,7 +63,7 @@ result iterativeMethod(long double k, long double accuracy) {
         x = k * std::cos(x);
         ++n;
         if (n == maxIterations) {
-            return {NAN, 0};
+            throw std::runtime_error("Не удалось найти решение");
         }
     }
     return {x, n};

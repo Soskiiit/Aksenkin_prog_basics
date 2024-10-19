@@ -24,6 +24,9 @@ void binary_method(long double k, int precision) {
         l = defaultL;
         r = defaultR;
     }
+    if (l > r) {
+        throw std::invalid_argument("Правая граница не может быть меньше левой");
+    }
     long double maxDerivative = k + 1;
     long double accuracy = std::pow(numericBase, -precision) * maxDerivative;
     result binaryResult = calculations::binaryCalculations(l, r, k, accuracy);
