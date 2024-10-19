@@ -3,13 +3,13 @@ set(CMAKE_CXX_STANDARD 20)
 
 project(prog_basics)
 
-SET(PROJECT_SOURCES
+set(PROJECT_SOURCES
         src/main.cpp
         src/calculations.cpp
         src/methods.cpp
 )
 
-SET(PROJECT_HEADERS
+set(PROJECT_HEADERS
         include/calculations.h
         include/methods.h
 )

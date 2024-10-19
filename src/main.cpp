@@ -65,7 +65,7 @@ void selectMethodAndRun() {
 }
 }  // namespace
 
-int main() {
+int main(int, char**) {
     selectMethodAndRun();
     return 0;
 }
