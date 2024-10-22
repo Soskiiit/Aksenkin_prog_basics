@@ -5,11 +5,11 @@ project(prog_basics)
 
 set(PROJECT_SOURCES
         src/main.cpp
-        src/methods.cpp
+        src/EquationSolving.cpp
 )
 
 set(PROJECT_HEADERS
-        include/methods.h
+        include/EquationSolving.h
 )
 
 add_executable(prog_basics

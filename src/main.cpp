@@ -1,6 +1,6 @@
-#include "methods.h"
+#include "EquationSolving.h"
 
 int main(int, char**) {
-    methods::SelectMethodAndRun();
+    EquationSolving::Menu();
     return 0;
 }
