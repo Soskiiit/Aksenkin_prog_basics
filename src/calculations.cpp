@@ -18,10 +18,9 @@ const long double initialX = 0.7;
 
 namespace calculations {
 result binaryCalculations(long double l, long double r, long double k, long double accuracy) {
-    std::cout << accuracy << std::endl;
     long double mid = 0;
     int n = 0;
-    while (r - l > accuracy) {
+    while (std::abs(r - l) > std::abs(accuracy)) {
         mid = (r + l) / 2;
         ++n;
         if (function(l, k) < 0 && function(mid, k) > 0) {
@@ -30,7 +29,7 @@ result binaryCalculations(long double l, long double r, long double k, long doub
             l = mid;
         }
     }
-    if (std::abs(function(mid, k)) > accuracy * k) {
+    if (std::abs(function(mid, k)) > std::abs(accuracy * k)) {
         throw std::runtime_error("В заданном диапазоне нет решений");
     }
     return {mid, n};

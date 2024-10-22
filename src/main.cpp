@@ -56,7 +56,7 @@ void selectMethodAndRun() {
         }
         std::cout << std::endl;
 
-        std::cout << "Продолжить работу? (Y/n)\n";
+        std::cout << "Продолжить работу? (y/n)\n";
         std::cin.ignore(ignoreLength, '\n');
         if (!(std::cin.peek() != '\n' && std::cin >> continueExecution)) {
             continueExecution = 'y';
