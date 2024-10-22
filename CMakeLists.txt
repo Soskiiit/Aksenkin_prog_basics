@@ -5,12 +5,10 @@ project(prog_basics)
 
 set(PROJECT_SOURCES
         src/main.cpp
-        src/calculations.cpp
         src/methods.cpp
 )
 
 set(PROJECT_HEADERS
-        include/calculations.h
         include/methods.h
 )
 
