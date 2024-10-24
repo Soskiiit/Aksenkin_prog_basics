@@ -1,6 +1,6 @@
-#include "EquationSolving.h"
+#include "EquationSolver.h"
 
 int main(int, char**) {
-    EquationSolving::Menu();
+    EquationSolver::ExecuteApplication();
     return 0;
 }

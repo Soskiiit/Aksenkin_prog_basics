@@ -1,15 +1,15 @@
-cmake_minimum_required(VERSION 3.30)
+cmake_minimum_required(VERSION 3.29.6)
 set(CMAKE_CXX_STANDARD 20)
 
 project(prog_basics)
 
 set(PROJECT_SOURCES
         src/main.cpp
-        src/EquationSolving.cpp
+        src/EquationSolver.cpp
 )
 
 set(PROJECT_HEADERS
-        include/EquationSolving.h
+        include/EquationSolver.h
 )
 
 add_executable(prog_basics
