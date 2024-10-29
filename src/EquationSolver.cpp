@@ -38,12 +38,12 @@ EquationResult CalculateHalfDivisionMethod(double k, double accuracy, double lef
         return {.root = NAN};
     }
 
-    if (CalculateFunction(leftBoundary, k) * CalculateFunction(rightBoundary, k) > 0) {
-        return {.root = NAN};
-    }
-
     double mid = 0;
     int iterations = 0;
+    if ((CalculateFunction(leftBoundary, k) > 0 && CalculateFunction(rightBoundary, k) > 0) ||
+        (CalculateFunction(leftBoundary, k) < 0 && CalculateFunction(rightBoundary, k) < 0)) {
+        return {.root = NAN};
+    }
 
     while (rightBoundary - leftBoundary > accuracy) {
         mid = (rightBoundary + leftBoundary) / 2;
@@ -152,7 +152,7 @@ void RunIterationMethod() {
 void SelectMethod(EquationMethod method) {
     try {
         switch (method) {
-            case EquationMethod::Newtons:
+            case EquationMethod::Newton:
                 RunNewtonsMethod();
                 break;
             case EquationMethod::HalfDivision:

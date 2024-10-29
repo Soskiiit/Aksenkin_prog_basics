@@ -2,7 +2,7 @@
 
 namespace EquationSolver {
 enum class EquationMethod {
-    Newtons = 1,
+    Newton = 1,
     HalfDivision = 2,
     Iterative = 3,
 };
