@@ -3,7 +3,7 @@
 #include <algorithm>
 
 namespace sorts {
-SortResults bubbleSort(int* arr, size_t arrayLength, bool reverse) {
+SortResults BubbleSort(int* arr, size_t arrayLength, bool reverse) {
     int comparisons = 0;
     int swaps = 0;
     bool swapped = false;
@@ -43,7 +43,7 @@ SortResults bubbleSort(int* arr, size_t arrayLength, bool reverse) {
     return {comparisons, swaps};
 }
 
-SortResults selectionSort(int* arr, size_t arrayLength, bool reverse) {
+SortResults SelectionSort(int* arr, size_t arrayLength, bool reverse) {
     int comparisons = 0;
     int swaps = 0;
 

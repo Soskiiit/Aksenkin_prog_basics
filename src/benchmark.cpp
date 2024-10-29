@@ -8,88 +8,141 @@
 #include "utils.h"
 
 namespace {
+const size_t kMinArraySize = 0;
 const size_t kStaticArrayLength = 8;
-const int kColumnWidth = 12;
+const int kColumnWidth = 20;
 
-void bubbleStaticSortBenchmark(int* arr, size_t arrLength) {
-    auto firstBubbleSortResults = sorts::bubbleSort(arr, arrLength);
-    auto secondBubbleSortResults = sorts::bubbleSort(arr, arrLength);
-    auto thirdBubbleSortResults = sorts::bubbleSort(arr, arrLength, true);
+void PrintSortResults(int comparisons, int swaps) {
+    std::cout << "Количество сравнений: " << comparisons << std::endl;
+    std::cout << "Количество перестановок: " << swaps << std::endl;
 
-    std::cout << "          Пузырьковая сортировка\n";
-    std::cout << "      Проход   Сравнений       Замен\n";
-    std::cout << std::setw(kColumnWidth) << 1 << std::setw(kColumnWidth) << firstBubbleSortResults.comparisons << std::setw(kColumnWidth)
-              << firstBubbleSortResults.swaps << std::endl;
-    std::cout << std::setw(kColumnWidth) << 2 << std::setw(kColumnWidth) << secondBubbleSortResults.comparisons << std::setw(kColumnWidth)
-              << secondBubbleSortResults.swaps << std::endl;
-    std::cout << std::setw(kColumnWidth) << 3 << std::setw(kColumnWidth) << thirdBubbleSortResults.comparisons << std::setw(kColumnWidth)
-              << thirdBubbleSortResults.swaps << std::endl;
     std::cout << std::endl;
 }
 
-void selectionStaticSortBenchmark(int* arr, size_t arrLength) {
-    auto firstSelectionSortResults = sorts::selectionSort(arr, arrLength);
-    auto secondSelectionSortResults = sorts::selectionSort(arr, arrLength);
-    auto thirdSelectionSortResults = sorts::selectionSort(arr, arrLength, true);
+void ExecuteDynamicArraySort() {
+    int comparisons = 0;
+    int swaps = 0;
 
-    std::cout << "            Сортировка выбором\n";
-    std::cout << "      Проход   Сравнений       Замен\n";
-    std::cout << std::setw(kColumnWidth) << 1 << std::setw(kColumnWidth) << firstSelectionSortResults.comparisons << std::setw(kColumnWidth)
-              << firstSelectionSortResults.swaps << std::endl;
-    std::cout << std::setw(kColumnWidth) << 2 << std::setw(kColumnWidth) << secondSelectionSortResults.comparisons << std::setw(kColumnWidth)
-              << secondSelectionSortResults.swaps << std::endl;
-    std::cout << std::setw(kColumnWidth) << 3 << std::setw(kColumnWidth) << thirdSelectionSortResults.comparisons << std::setw(kColumnWidth)
-              << thirdSelectionSortResults.swaps << std::endl;
+    int arraySize = 0;
+
+    std::cout << "Введите размер динамического массива: ";
+    std::cin >> arraySize;
+
+    if (arraySize == kMinArraySize) {
+        std::cout << "Введен неверный размер динамического массива." << std::endl;
+        return;
+    }
+
+    int* arraySelectionSort = new int[arraySize];
+
+    utils::FillArrayWithRandomValues(arraySelectionSort, arraySize);
+
+    int* arrayBubbleSort = new int[arraySize];
+
+    std::copy_n(arraySelectionSort, arraySize, arrayBubbleSort);
+
+    std::cout << "Сортировка массива при количестве элементов " << arraySize << ":" << std::endl;
+    std::cout << "\t\t\t\tСравнения\tПерестановки" << std::endl;
+    auto selectionSortStats = sorts::SelectionSort(arraySelectionSort, arraySize);
+    comparisons = selectionSortStats.comparisons;
+    swaps = selectionSortStats.swaps;
+    std::cout << "Сортировка выбором  " << std::setw(kColumnWidth) << comparisons << std::setw(kColumnWidth) << swaps << std::endl;
+
+    auto bubbleSortStats = sorts::BubbleSort(arrayBubbleSort, arraySize);
+    comparisons = bubbleSortStats.comparisons;
+    swaps = bubbleSortStats.swaps;
+    std::cout << "Сортировка пузырьком" << std::setw(kColumnWidth) << comparisons << std::setw(kColumnWidth) << swaps << std::endl;
     std::cout << std::endl;
+
+    delete[] arrayBubbleSort;
+    delete[] arraySelectionSort;
 }
+
+void ExecuteStaticArraySort() {
+    int arraySelectionSort[kStaticArrayLength];
+    utils::FillArrayWithRandomValues(arraySelectionSort, kStaticArrayLength);
+
+    int comparisons = 0;
+    int swaps = 0;
+
+    std::cout << "Исходный статический массив: ";
+    utils::PrintArray(arraySelectionSort, kStaticArrayLength);
+    std::cout << std::endl;
+
+    int arrayBubbleSort[kStaticArrayLength];
+
+    std::copy_n(arraySelectionSort, kStaticArrayLength, arrayBubbleSort);
+    auto sortResult = sorts::SelectionSort(arraySelectionSort, kStaticArrayLength);
+    comparisons = sortResult.comparisons;
+    swaps = sortResult.swaps;
+
+    std::cout << "Сортировка выбором по возрастанию: ";
+    utils::PrintArray(arraySelectionSort, kStaticArrayLength);
+    PrintSortResults(comparisons, swaps);
+
+    sortResult = sorts::SelectionSort(arraySelectionSort, kStaticArrayLength);
+    comparisons = sortResult.comparisons;
+    swaps = sortResult.swaps;
+
+    std::cout << "Повторная сортировка выбором по возрастанию: ";
+    utils::PrintArray(arraySelectionSort, kStaticArrayLength);
+    PrintSortResults(comparisons, swaps);
+
+    sortResult = sorts::SelectionSort(arraySelectionSort, kStaticArrayLength, true);
+    comparisons = sortResult.comparisons;
+    swaps = sortResult.swaps;
+    std::cout << "Сортировка выбором по убыванию: ";
+    utils::PrintArray(arraySelectionSort, kStaticArrayLength);
+    PrintSortResults(comparisons, swaps);
+
+    std::cout << "-------------------------------------------------\n\n";
+
+    sortResult = sorts::BubbleSort(arrayBubbleSort, kStaticArrayLength);
+    comparisons = sortResult.comparisons;
+    swaps = sortResult.swaps;
+
+    std::cout << "Сортировка пузырьком по возрастанию: ";
+    utils::PrintArray(arrayBubbleSort, kStaticArrayLength);
+    PrintSortResults(comparisons, swaps);
+
+    sortResult = sorts::BubbleSort(arrayBubbleSort, kStaticArrayLength);
+    comparisons = sortResult.comparisons;
+    swaps = sortResult.swaps;
+
+    std::cout << "Повторная сортировка пузырьком по возрастанию: ";
+    utils::PrintArray(arrayBubbleSort, kStaticArrayLength);
+    PrintSortResults(comparisons, swaps);
+
+    sortResult = sorts::BubbleSort(arrayBubbleSort, kStaticArrayLength, true);
+    comparisons = sortResult.comparisons;
+    swaps = sortResult.swaps;
+    std::cout << "Сортировка пузырьком по убыванию: ";
+    utils::PrintArray(arrayBubbleSort, kStaticArrayLength);
+    PrintSortResults(comparisons, swaps);
+
+    std::cout << "-------------------------------------------------\n\n";
+}  // namespace
 }  // namespace
 
 namespace benchmark {
-void runBenchmark() {
-    size_t dynamicArrLength = 0;
-    std::cout << "Введите длину для динамического массива: ";
-    std::cin >> dynamicArrLength;
-
-    // static array
-    int staticArr[kStaticArrayLength] = {0};
-    int staticArrTemp[kStaticArrayLength] = {0};
-    utils::fillArrayWithRandomValues(staticArr, kStaticArrayLength);
-
-    std::cout << "Тесты со статическими массивами\n";
-    std::cout << "Исходный массив: " << std::endl;
-    utils::printArray(staticArr, kStaticArrayLength);
-
-    std::copy_n(staticArr, kStaticArrayLength, staticArrTemp);
-    bubbleStaticSortBenchmark(staticArrTemp, kStaticArrayLength);
-
-    std::copy_n(staticArr, kStaticArrayLength, staticArrTemp);
-    selectionStaticSortBenchmark(staticArrTemp, kStaticArrayLength);
+void RunBenchmark() {
+    int task = 0;
+    std::cout << "Виды задания для сортировки массивов:\n"
+              << "1. Со статическим массивом\n"
+              << "2. С динамическим массивом\n"
+              << "Введите номер задания: ";
+    std::cin >> task;
     std::cout << std::endl;
-
-    // dynamic array
-    std::cout << "Тесты с динамическими массивами\n";
-    int* dynamicArr = new int[dynamicArrLength];
-    int* dynamicArrTemp = new int[dynamicArrLength];
-    utils::fillArrayWithRandomValues(dynamicArr, dynamicArrLength);
-
-    std::copy(dynamicArr, dynamicArr + dynamicArrLength, dynamicArrTemp);
-    auto selectionSortResult = sorts::selectionSort(dynamicArr, dynamicArrLength);
-    std::copy(dynamicArr, dynamicArr + dynamicArrLength, dynamicArrTemp);
-    auto bubbleSortResult = sorts::bubbleSort(dynamicArr, dynamicArrLength);
-
-    std::cout << "            Сортировка выбором\n";
-    std::cout << "      Проход   Сравнений       Замен\n";
-    std::cout << std::setw(kColumnWidth) << 1 << std::setw(kColumnWidth) << selectionSortResult.comparisons << std::setw(kColumnWidth)
-              << selectionSortResult.swaps << std::endl;
-    std::cout << std::endl;
-
-    std::cout << "          Пузырьковая сортировка\n";
-    std::cout << "      Проход   Сравнений       Замен\n";
-    std::cout << std::setw(kColumnWidth) << 1 << std::setw(kColumnWidth) << bubbleSortResult.comparisons << std::setw(kColumnWidth)
-              << bubbleSortResult.swaps << std::endl;
-    std::cout << std::endl;
-
-    delete[] dynamicArrTemp;
-    delete[] dynamicArr;
+    switch (static_cast<ArrayType>(task)) {
+        case ArrayType::Static:
+            ExecuteStaticArraySort();
+            break;
+        case ArrayType::Dynamic:
+            ExecuteDynamicArraySort();
+            break;
+        default:
+            std::cout << "Введен неверный номер метода сортировки." << std::endl;
+            break;
+    }
 }
 }  // namespace benchmark

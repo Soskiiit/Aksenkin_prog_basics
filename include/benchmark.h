@@ -1,5 +1,10 @@
 #pragma once
 
 namespace benchmark {
-void runBenchmark();
-}
+enum class ArrayType {
+    Static = 1,
+    Dynamic = 2,
+};
+
+void RunBenchmark();
+}  // namespace benchmark

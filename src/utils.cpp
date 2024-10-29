@@ -4,7 +4,7 @@
 #include <random>
 
 namespace utils {
-void fillArrayWithRandomValues(int* arr, size_t arrLength, int minNumber, int maxNumber) {
+void FillArrayWithRandomValues(int* arr, size_t arrLength, int minNumber, int maxNumber) {
     std::random_device r{};
     std::default_random_engine randomEngine(r());
     std::uniform_int_distribution distribution(minNumber, maxNumber);
@@ -13,7 +13,7 @@ void fillArrayWithRandomValues(int* arr, size_t arrLength, int minNumber, int ma
     }
 }
 
-void printArray(int* arr, size_t arrLength) {
+void PrintArray(int* arr, size_t arrLength) {
     for (size_t i = 0; i < arrLength; i++) {
         std::cout << arr[i] << " ";
     }
