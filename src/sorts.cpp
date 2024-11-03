@@ -3,7 +3,7 @@
 #include <algorithm>
 
 namespace sorts {
-SortResults BubbleSort(int* arr, size_t arrayLength, bool reverse) {
+SortResults BubbleSort(int* array, size_t arrayLength, bool reverse) {
     int comparisons = 0;
     int swaps = 0;
     bool swapped = false;
@@ -12,8 +12,8 @@ SortResults BubbleSort(int* arr, size_t arrayLength, bool reverse) {
         for (int i = 0; i < arrayLength - 1; i++) {
             swapped = false;
             for (int j = 0; j < arrayLength - i - 1; j++) {
-                if (arr[j] < arr[j + 1]) {
-                    std::swap(arr[j], arr[j + 1]);
+                if (array[j] < array[j + 1]) {
+                    std::swap(array[j], array[j + 1]);
                     ++swaps;
                     swapped = true;
                 }
@@ -27,8 +27,8 @@ SortResults BubbleSort(int* arr, size_t arrayLength, bool reverse) {
         for (int i = 0; i < arrayLength - 1; i++) {
             swapped = false;
             for (int j = 0; j < arrayLength - i - 1; j++) {
-                if (arr[j] > arr[j + 1]) {
-                    std::swap(arr[j], arr[j + 1]);
+                if (array[j] > array[j + 1]) {
+                    std::swap(array[j], array[j + 1]);
                     ++swaps;
                     swapped = true;
                 }
@@ -49,29 +49,31 @@ SortResults SelectionSort(int* arr, size_t arrayLength, bool reverse) {
 
     if (reverse) {
         for (int i = 0; i < arrayLength - 1; ++i) {
-            int minIndex = i;
+            int swapTargetIndex = i;
             for (int j = i + 1; j < arrayLength; ++j) {
-                if (arr[j] > arr[minIndex]) {
-                    minIndex = j;
+                if (arr[j] > arr[swapTargetIndex]) {
+                    swapTargetIndex = j;
                 }
                 ++comparisons;
             }
-            if (i != minIndex) {
-                std::swap(arr[i], arr[minIndex]);
+            if (i != swapTargetIndex) {
+                std::swap(arr[i], arr[swapTargetIndex]);
                 ++swaps;
             }
         }
     } else {
         for (int i = 0; i < arrayLength - 1; ++i) {
-            int minIndex = i;
+            int swapTargetIndex = i;
             for (int j = i + 1; j < arrayLength; ++j) {
-                if (arr[j] < arr[minIndex]) {
-                    minIndex = j;
+                if (arr[j] < arr[swapTargetIndex]) {
+                    swapTargetIndex = j;
                 }
                 ++comparisons;
             }
-            std::swap(arr[i], arr[minIndex]);
-            ++swaps;
+            if (i != swapTargetIndex) {
+                std::swap(arr[i], arr[swapTargetIndex]);
+                ++swaps;
+            }
         }
     }
 

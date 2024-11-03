@@ -7,4 +7,5 @@ enum class ArrayType {
 };
 
 void RunBenchmark();
+void ExecuteApplication();
 }  // namespace benchmark

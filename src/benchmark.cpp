@@ -23,7 +23,7 @@ void ExecuteDynamicArraySort() {
     int comparisons = 0;
     int swaps = 0;
 
-    int arraySize = 0;
+    size_t arraySize = 0;
 
     std::cout << "Введите размер динамического массива: ";
     std::cin >> arraySize;
@@ -42,7 +42,7 @@ void ExecuteDynamicArraySort() {
     std::copy_n(arraySelectionSort, arraySize, arrayBubbleSort);
 
     std::cout << "Сортировка массива при количестве элементов " << arraySize << ":" << std::endl;
-    std::cout << "\t\t\t\tСравнения\tПерестановки" << std::endl;
+    std::cout << "                               Сравнения        Перестановки\n";
     auto selectionSortStats = sorts::SelectionSort(arraySelectionSort, arraySize);
     comparisons = selectionSortStats.comparisons;
     swaps = selectionSortStats.swaps;
@@ -91,6 +91,7 @@ void ExecuteStaticArraySort() {
     sortResult = sorts::SelectionSort(arraySelectionSort, kStaticArrayLength, true);
     comparisons = sortResult.comparisons;
     swaps = sortResult.swaps;
+
     std::cout << "Сортировка выбором по убыванию: ";
     utils::PrintArray(arraySelectionSort, kStaticArrayLength);
     PrintSortResults(comparisons, swaps);
@@ -116,12 +117,13 @@ void ExecuteStaticArraySort() {
     sortResult = sorts::BubbleSort(arrayBubbleSort, kStaticArrayLength, true);
     comparisons = sortResult.comparisons;
     swaps = sortResult.swaps;
+
     std::cout << "Сортировка пузырьком по убыванию: ";
     utils::PrintArray(arrayBubbleSort, kStaticArrayLength);
     PrintSortResults(comparisons, swaps);
 
     std::cout << "-------------------------------------------------\n\n";
-}  // namespace
+}
 }  // namespace
 
 namespace benchmark {
@@ -143,6 +145,15 @@ void RunBenchmark() {
         default:
             std::cout << "Введен неверный номер метода сортировки." << std::endl;
             break;
+    }
+}
+
+void ExecuteApplication() {
+    char continueExecution = 'y';
+    while (continueExecution == 'y') {
+        RunBenchmark();
+        std::cout << "Продолжить работу? (y/n)" << std::endl;
+        std::cin >> continueExecution;
     }
 }
 }  // namespace benchmark
