@@ -9,7 +9,8 @@
 
 namespace {
 const size_t kMinArraySize = 0;
-const size_t kStaticArrayLength = 8;
+const size_t kMaxArraySize = 1'000'000'000;
+const size_t kStaticArrayLength = 5;
 const int kColumnWidth = 20;
 
 void PrintSortResults(int comparisons, int swaps) {
@@ -28,7 +29,7 @@ void ExecuteDynamicArraySort() {
     std::cout << "Введите размер динамического массива: ";
     std::cin >> arraySize;
 
-    if (arraySize == kMinArraySize) {
+    if (arraySize == kMinArraySize || arraySize > kMaxArraySize) {
         std::cout << "Введен неверный размер динамического массива." << std::endl;
         return;
     }
@@ -38,7 +39,6 @@ void ExecuteDynamicArraySort() {
     utils::FillArrayWithRandomValues(arraySelectionSort, arraySize);
 
     int* arrayBubbleSort = new int[arraySize];
-
     std::copy_n(arraySelectionSort, arraySize, arrayBubbleSort);
 
     std::cout << "Сортировка массива при количестве элементов " << arraySize << ":" << std::endl;
@@ -124,17 +124,22 @@ void ExecuteStaticArraySort() {
 
     std::cout << "-------------------------------------------------\n\n";
 }
-}  // namespace
-
-namespace benchmark {
-void RunBenchmark() {
-    int task = 0;
+int GetTaskNumber() {
+    int taskNumber = 0;
     std::cout << "Виды задания для сортировки массивов:\n"
               << "1. Со статическим массивом\n"
               << "2. С динамическим массивом\n"
               << "Введите номер задания: ";
-    std::cin >> task;
+    std::cin >> taskNumber;
     std::cout << std::endl;
+    return taskNumber;
+}
+
+}  // namespace
+
+namespace benchmark {
+void RunBenchmark() {
+    int task = GetTaskNumber();
     switch (static_cast<ArrayType>(task)) {
         case ArrayType::Static:
             ExecuteStaticArraySort();
