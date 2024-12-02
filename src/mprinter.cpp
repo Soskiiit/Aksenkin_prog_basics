@@ -89,6 +89,9 @@ namespace mprinter {
     }
 
     void RunApplication() {
+        // Part 1
+        std::cout << std::endl << "Part 1" << std::endl;
+
         int rows = GenRandomNumber(8, 15);
         int cols = GenRandomNumber(8, 15);
         int precision = GenRandomNumber(3, 8);
@@ -98,5 +101,34 @@ namespace mprinter {
         FillMatrix(matrix, rows, cols);
         PrintMatrix(matrix, rows, cols, precision);
         DeleteMatrix(matrix);
+
+        // Part 2
+        std::cout << std::endl << "Part 2" << std::endl;
+
+        double staticMatrix[10][10];
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                staticMatrix[i][j] = i * 10 + j;
+            }
+        }
+        double* serviceArray[10];
+        for (int i = 0; i < 10; i++) {
+            serviceArray[i] = staticMatrix[i];
+        }
+        PrintMatrix(serviceArray, 10, 10, 0);
+
+        // Part 3
+        std::cout << std::endl << "Part 3" << std::endl;
+
+        // Prints first line address 2 times and address of 3rd line
+        std::cout << staticMatrix << "  " << staticMatrix[0] << "  " << staticMatrix[2] << std::endl;
+        // First matrix element via 3 methods
+        std::cout << staticMatrix[0][0] << "  " << **staticMatrix << "  " << *staticMatrix[0] << std::endl;
+        // First elem of 2nd line via 2 methods
+        std::cout << *(*(staticMatrix + 1)) << "  " << *staticMatrix[1] << std::endl;
+        // 2nd elem 1st line
+        std::cout << *(staticMatrix[0] + 1) << "  " << *(*staticMatrix + 1) << std::endl;
+        // 3rd line 21st element
+        std::cout << staticMatrix[0][20] << "  " << *(staticMatrix[0] + 20) << "  " << *staticMatrix[2] << std::endl;
     }
 }
