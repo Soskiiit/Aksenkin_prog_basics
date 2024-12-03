@@ -7,6 +7,8 @@
 
 
 namespace mprinter {
+    const int kDefaultMaxLineLength = 80;
+
     long Factorial(int n) {
         long result = 1;
         for (int i = 2; i <= n; i++) {
@@ -59,15 +61,16 @@ namespace mprinter {
         }
     }
 
-    void PrintMatrix(double **matrix, int rows, int cols, int precision) {
+    void PrintMatrix(double **matrix, int rows, int cols, int precision, int maxLineLength=kDefaultMaxLineLength) {
         int oneElementWidth = precision + 9; // margin(7) + "0." + precision
-        int elenemtsInOneRow = 80 / oneElementWidth;
+        int elenemtsInOneRow = maxLineLength / oneElementWidth;
+        int tableWidth = std::min(oneElementWidth * std::min(elenemtsInOneRow, cols) + 9, maxLineLength + 9);
         int pagesCount = cols / elenemtsInOneRow;
         if (cols % elenemtsInOneRow != 0) pagesCount++;
 
         // Print "=======..." (start of table) and configures output
         std::cout << std::setprecision(precision) << std::fixed << std::setfill('=');
-        std::cout << std::setw(80) << "=" << std::endl << std::setfill(' ');
+        std::cout << std::setw(tableWidth) << "=" << std::endl << std::setfill(' ');
 
         // Printing table
         for (int i = 0; i < pagesCount; i++) {
@@ -80,12 +83,12 @@ namespace mprinter {
             }
             // If it was last row and wasn't last page separates pages by print "-------..."
             if (i != pagesCount - 1) {
-                std::cout << std::setfill('-') << std::setw(80) << '-' << std::endl;
+                std::cout << std::setfill('-') << std::setw(tableWidth) << '-' << std::endl;
                 std::cout << std::setfill(' ');
             }
         }
         // Prints "=======..." (end of table)
-        std::cout << std::setfill('=') << std::setw(80) << "=" << std::endl << std::setfill(' ');
+        std::cout << std::setfill('=') << std::setw(tableWidth) << "=" << std::endl << std::setfill(' ');
     }
 
     void RunApplication() {
