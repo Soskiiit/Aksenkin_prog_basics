@@ -7,8 +7,6 @@
 
 
 namespace mprinter {
-    const int kDefaultMaxLineLength = 80;
-
     long Factorial(int n) {
         long result = 1;
         for (int i = 2; i <= n; i++) {
@@ -61,7 +59,7 @@ namespace mprinter {
         }
     }
 
-    void PrintMatrix(double **matrix, int rows, int cols, int precision, int maxLineLength=kDefaultMaxLineLength) {
+    void PrintMatrix(double **matrix, int rows, int cols, int precision, int maxLineLength) {
         int oneElementWidth = precision + 9; // margin(7) + "0." + precision
         int elenemtsInOneRow = maxLineLength / oneElementWidth;
         int tableWidth = std::min(oneElementWidth * std::min(elenemtsInOneRow, cols) + 9, maxLineLength + 9);
@@ -114,7 +112,7 @@ namespace mprinter {
                 staticMatrix[i][j] = i * 10 + j;
             }
         }
-        double* serviceArray[10];
+        double *serviceArray[10];
         for (int i = 0; i < 10; i++) {
             serviceArray[i] = staticMatrix[i];
         }
