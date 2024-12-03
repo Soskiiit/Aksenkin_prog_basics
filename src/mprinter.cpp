@@ -59,15 +59,22 @@ namespace mprinter {
         }
     }
 
-    void PrintMatrix(double **matrix, int rows, int cols, int precision, int maxLineLength) {
-        int oneElementWidth = precision + 9; // margin(7) + "0." + precision
+    void PrintMatrix(double **matrix, int rows, int cols, OutputMode outputMode, int precision, int maxLineLength) {
+        int margin = 4;
+        if (outputMode == OutputMode::Scientific) margin += 8;
+        int oneElementWidth = precision + margin;
         int elenemtsInOneRow = maxLineLength / oneElementWidth;
-        int tableWidth = std::min(oneElementWidth * std::min(elenemtsInOneRow, cols) + 9, maxLineLength + 9);
+        int tableWidth = std::min(oneElementWidth * std::min(elenemtsInOneRow, cols) + margin, maxLineLength + margin);
         int pagesCount = cols / elenemtsInOneRow;
         if (cols % elenemtsInOneRow != 0) pagesCount++;
 
         // Print "=======..." (start of table) and configures output
-        std::cout << std::setprecision(precision) << std::fixed << std::setfill('=');
+        if (outputMode == OutputMode::Fixed) {
+            std::cout << std::fixed;
+        } else {
+            std::cout << std::scientific;
+        }
+        std::cout << std::setprecision(precision) << std::setfill('=');
         std::cout << std::setw(tableWidth) << "=" << std::endl << std::setfill(' ');
 
         // Printing table
@@ -93,15 +100,26 @@ namespace mprinter {
         // Part 1
         std::cout << std::endl << "Part 1" << std::endl;
 
-        int rows = GenRandomNumber(8, 15);
-        int cols = GenRandomNumber(8, 15);
-        int precision = GenRandomNumber(3, 8);
+        int rows = 0; // GenRandomNumber(8, 15);
+        int cols = 0; // GenRandomNumber(8, 15);
+        int precision = 0; // GenRandomNumber(3, 8);
+        int mode = 0;
+        std::cout << "Введите количество строк: ";
+        std::cin >> rows;
+        std::cout << "Введите количество столбцов: ";
+        std::cin >> cols;
+        std::cout << "Введите количество знаков после запятой: ";
+        std::cin >> precision;
+        std::cout << "Выберите тип вывода:\n    1) Фиксированный\n    2) Научный\n";
+        std::cin >> mode;
+        OutputMode outputMode = static_cast<OutputMode>(mode);
+
         std::cout << "Rows: " << rows << "\tCols: " << cols << "\tPrecision: " << precision << std::endl << std::endl;
 
-        double **matrix = CreateMatrix(rows, cols);
-        FillMatrix(matrix, rows, cols);
-        PrintMatrix(matrix, rows, cols, precision);
-        DeleteMatrix(matrix);
+        double **dynamicMatrix = CreateMatrix(rows, cols);
+        FillMatrix(dynamicMatrix, rows, cols);
+        PrintMatrix(dynamicMatrix, rows, cols, outputMode, precision);
+        DeleteMatrix(dynamicMatrix);
 
         // Part 2
         std::cout << std::endl << "Part 2" << std::endl;
@@ -116,20 +134,15 @@ namespace mprinter {
         for (int i = 0; i < 10; i++) {
             serviceArray[i] = staticMatrix[i];
         }
-        PrintMatrix(serviceArray, 10, 10, 0);
+        PrintMatrix(serviceArray, 10, 10, OutputMode::Fixed, 0);
 
         // Part 3
         std::cout << std::endl << "Part 3" << std::endl;
 
-        // Prints first line address 2 times and address of 3rd line
         std::cout << staticMatrix << "  " << staticMatrix[0] << "  " << staticMatrix[2] << std::endl;
-        // First matrix element via 3 methods
         std::cout << staticMatrix[0][0] << "  " << **staticMatrix << "  " << *staticMatrix[0] << std::endl;
-        // First elem of 2nd line via 2 methods
         std::cout << *(*(staticMatrix + 1)) << "  " << *staticMatrix[1] << std::endl;
-        // 2nd elem 1st line
         std::cout << *(staticMatrix[0] + 1) << "  " << *(*staticMatrix + 1) << std::endl;
-        // 3rd line 21st element
         std::cout << staticMatrix[0][20] << "  " << *(staticMatrix[0] + 20) << "  " << *staticMatrix[2] << std::endl;
     }
 }
