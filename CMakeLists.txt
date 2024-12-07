@@ -11,6 +11,7 @@ set(PROJECT_SOURCES
 
 set(PROJECT_HEADERS
         include/dictionary.h
+        include/utils.h
 )
 
 add_executable(prog_basics
