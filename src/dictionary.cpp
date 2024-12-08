@@ -49,14 +49,14 @@ namespace dict {
     bool DeleteWord(Dictionary* dict, int* dictLength, char* word) {
         for (int i = 0; i < *dictLength; i++) {
             if (strcmp(word, dict[i].engl) == 0) {
-                delete dict[i].engl;
-                delete dict[i].rus;
+                delete[] dict[i].engl;
+                delete[] dict[i].rus;
                 utils::DeleteByIndex(dict, dictLength, i);
                 return true;
             }
             if (strcmp(word, dict[i].rus) == 0) {
-                delete dict[i].engl;
-                delete dict[i].rus;
+                delete[] dict[i].engl;
+                delete[] dict[i].rus;
                 utils::DeleteByIndex(dict, dictLength, i);
                 return true;
             }
@@ -133,7 +133,7 @@ namespace dict {
     }
 
     void PrintDictionary(Dictionary* dict, int dictLength) {
-        std::cout << std::endl << "Dictionary:" << std::endl;
+        std::cout << std::endl << "Словарь:" << std::endl;
         for (int i = 0; i < dictLength; i++) {
             std::cout << "\t" << dict[i].engl << ": " << dict[i].rus << std::endl;
         }
@@ -149,7 +149,37 @@ namespace dict {
     }
 
     int Demo() {
-        std::cout << "Demo\n";
+        auto* dict = new Dictionary[kInitialDictionarySize];
+        int dictLength = 0;
+        int dictCapacity = kInitialDictionarySize;
+
+        char* wordPairs[][2] = {
+            {new char[] {"meow"}, new char[] {"мяу"}},
+            {new char[] {"MSTU"}, new char[] {"МГТУ"}},
+            {new char[] {"C++"}, new char[] {"C++"}},
+            {new char[] {"Hashmap"}, new char[] {"is_better"}},
+            {new char[] {"хочу"}, new char[] {"персик"}},
+            {new char[] {"O_o"}, new char[] {"🤨"}}
+        };
+
+        std::cout << "Демо\n\n";
+        for (int i = 0; i < std::size(wordPairs); i++) {
+            std::cout << "Добавляем в словарь пару " << wordPairs[i][0] <<":" << wordPairs[i][1] << "\n";
+            AddWord(&dict, &dictLength, &dictCapacity, wordPairs[i][0], wordPairs[i][1]);
+        }
+
+        std::cout << "Попробуем ещё раз добавить пару meow:мяу" << std::endl;
+        AddWord(&dict, &dictLength, &dictCapacity, "meow", "мяу");
+
+        std::cout << "\nПолучаем:";
+        PrintDictionary(dict, dictLength);
+        std::cout << "\nУвидим, что словарь отсортирован и не имеет повторений\n";
+
+        std::cout << "\nУдаляем пару с персиком\n";
+        DeleteWord(dict, &dictLength, "персик");
+
+        std::cout << "\nПолучаем:";
+        PrintDictionary(dict, dictLength);
         return 0;
     }
 
@@ -173,7 +203,7 @@ namespace dict {
         auto* dict = new Dictionary[kInitialDictionarySize];
         int dictLength = 0;
         int dictCapacity = kInitialDictionarySize;
-        std::cout << "It's interactive!\n";
+        std::cout << "Интерактивный режим!\n";
         for (;;) {
             switch (Menu()){
                 case Action::AddWord:
@@ -202,3 +232,4 @@ namespace dict {
         }
     }
 }
+    
