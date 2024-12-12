@@ -143,9 +143,31 @@ namespace dict {
         std::ofstream file;
         file.open(filename);
         for (int i = 0; i < dictLength; i++) {
-            file << dict[i].engl << " - " << dict[i].rus << "\n";
+            file << dict[i].engl << "\n" << dict[i].rus << "\n";
         }
         file.close();
+    }
+
+    void LoadDictionary(Dictionary** dict, int* dictLength, int* dictCapacity, char* filename) {
+        std::ifstream file;
+        file.open(filename);
+        while (file.good()) {
+            char* englishWord = new char[kMaxWordLength];
+            char* russianWord = new char[kMaxWordLength];
+            file.getline(englishWord, kMaxWordLength);
+            file.getline(russianWord, kMaxWordLength);
+            if (*englishWord != '\0') {
+                AddWord(dict, dictLength, dictCapacity, englishWord, russianWord);
+            }
+        }
+        file.close();
+    }
+
+    void DeleteDictionary(Dictionary* dict, int *dictLength) {
+        for (int i = 0; i < *dictLength; i++) {
+            DeleteWord(dict, dictLength, dict[0].engl);
+        }
+        delete[] dict;
     }
 
     int Demo() {
@@ -203,6 +225,7 @@ namespace dict {
         auto* dict = new Dictionary[kInitialDictionarySize];
         int dictLength = 0;
         int dictCapacity = kInitialDictionarySize;
+        LoadDictionary(&dict, &dictLength, &dictCapacity, "../dict.txt");
         std::cout << "Интерактивный режим!\n";
         for (;;) {
             switch (Menu()){
@@ -225,6 +248,7 @@ namespace dict {
                     DumpDictionary(dict, dictLength, "../dict.txt");
                     break;
                 case Action::Exit:
+                    DeleteDictionary(dict, &dictLength);
                     return 0;
                 default:
                     std::cout << "Некорректный ввод\n";
