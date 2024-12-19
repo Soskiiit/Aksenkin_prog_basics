@@ -6,9 +6,11 @@ project(prog_basics)
 
 SET(PROJECT_SOURCES
         src/main.cpp
+        src/matrixInverser.cpp
 )
 
 SET(PROJECT_HEADERS
+        include/matrixInverser.h
 )
 
 add_executable(prog_basics
