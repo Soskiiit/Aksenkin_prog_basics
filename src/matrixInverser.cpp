@@ -132,6 +132,7 @@ namespace inverser {
         switch (static_cast<Action>(methodNumber)) {
             case MatrixInverse:
                 RunInverseMatrixCase();
+                break;
             case SolveSOLE:
                 RunSOLECase();
         }
