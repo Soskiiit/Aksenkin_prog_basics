@@ -51,6 +51,7 @@ namespace inverser {
                 }
             }
         }
+        delete[] matrixCopy;
         return inverseMatrix;
     }
 
@@ -70,6 +71,37 @@ namespace inverser {
         delete[] matrix;
     }
 
+    double** MultiplyMatrix(double** matrix1, double** matrix2, int n) {
+        double** result = new double*[n];
+        for (int i = 0; i < n; ++i) {
+            result[i] = new double[n] {0};
+            for (int j = 0; j < n; ++j) {
+                for (int k = 0; k < n; ++k) {
+                    result[i][j] += matrix1[i][k] * matrix2[k][j];
+                }
+            }
+        }
+        return result;
+    }
+
+    bool InverseIsValid(double** matrix, double** inverseMatrix, int n) {
+        double** result = MultiplyMatrix(matrix, inverseMatrix, n);
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (i == j && std::abs(result[i][j] - 1) > 1e-6) {
+                    DeleteMatrix(result, n);
+                    return false;
+                }
+                if (i != j && std::abs(result[i][j]) > 1e-6) {
+                    DeleteMatrix(result, n);
+                    return false;
+                }
+            }
+        }
+        DeleteMatrix(result, n);
+        return true;
+    }
+
     void RunInverseMatrixCase() {
         int n = 0;
         std::cout << "Введите размер матрицы, к которой нужно найти обратную: ";
@@ -87,6 +119,11 @@ namespace inverser {
         PrintMatrix(matrix, n);
         std::cout << "Обратная матрица:" << std::endl;
         PrintMatrix(inverseMatrix, n);
+        if (InverseIsValid(matrix, inverseMatrix, n)) {
+            std::cout << "\nОбратная матрица верна" << std::endl;
+        } else {
+            std::cout << "\nОбратная матрица неверна" << std::endl;
+        }
         DeleteMatrix(matrix, n);
         DeleteMatrix(inverseMatrix, n);
     }
@@ -117,9 +154,9 @@ namespace inverser {
             std::cout << roots[i] << " ";
         }
         delete[] answers;
+        delete[] roots;
         DeleteMatrix(matrix, n);
         DeleteMatrix(inverseMatrix, n);
-
     }
 
     void StartApplication() {
