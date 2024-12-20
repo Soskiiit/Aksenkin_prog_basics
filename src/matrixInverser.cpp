@@ -16,7 +16,7 @@ namespace inverser {
         return identity;
     }
 
-    double** InverseMatrix(double** matrix, int n) {
+    double** FindInverseMatrix(double** matrix, int n) {
         double** matrixCopy = new double*[n];
         for (int i = 0; i < n; ++i) {
             matrixCopy[i] = new double[n] {0};
@@ -51,7 +51,6 @@ namespace inverser {
                 }
             }
         }
-
         return inverseMatrix;
     }
 
@@ -71,7 +70,7 @@ namespace inverser {
         delete[] matrix;
     }
 
-    void Solve() {
+    void RunInverseMatrixCase() {
         int n = 0;
         std::cout << "Введите размер матрицы, к которой нужно найти обратную: ";
         std::cin >> n;
@@ -83,12 +82,58 @@ namespace inverser {
                 std::cin >> matrix[i][j];
             }
         }
-        double** inverseMatrix = InverseMatrix(matrix, n);
+        double** inverseMatrix = FindInverseMatrix(matrix, n);
         std::cout << "Исходная матрица:"<< std::endl;
         PrintMatrix(matrix, n);
         std::cout << "Обратная матрица:" << std::endl;
         PrintMatrix(inverseMatrix, n);
         DeleteMatrix(matrix, n);
         DeleteMatrix(inverseMatrix, n);
+    }
+
+    void RunSOLECase() {
+        int n = 0;
+        std::cout << "Введите кол-во переменных: ";
+        std::cin >> n;
+        std::cout << "Введите расширенную матрицу с коэффициентами и ответами" << std::endl;
+        double** matrix = new double*[n];
+        double* answers = new double[n] {0};
+        double* roots = new double[n] {0};
+        for (int i = 0; i < n; ++i) {
+            matrix[i] = new double[n] {0};
+            for (int j = 0; j < n; ++j) {
+                std::cin >> matrix[i][j];
+            }
+            std::cin >> answers[i];
+        }
+
+        double** inverseMatrix = FindInverseMatrix(matrix, n);
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n; ++j) {
+                roots[i] += inverseMatrix[i][j] * answers[j];
+            }
+        }
+        for (int i = 0; i < n; ++i) {
+            std::cout << roots[i] << " ";
+        }
+        delete[] answers;
+        DeleteMatrix(matrix, n);
+        DeleteMatrix(inverseMatrix, n);
+
+    }
+
+    void StartApplication() {
+        int methodNumber = 0;
+        std::cout << "Выберите решаемую задачу:" << std::endl;
+        std::cout << "\t1)Нахождение обратной матрицы" << std::endl;
+        std::cout << "\t2)Решение СЛАУ" << std::endl;
+
+        std::cin >> methodNumber;
+        switch (static_cast<Action>(methodNumber)) {
+            case MatrixInverse:
+                RunInverseMatrixCase();
+            case SolveSOLE:
+                RunSOLECase();
+        }
     }
 }

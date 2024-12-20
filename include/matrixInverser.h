@@ -2,8 +2,13 @@
 
 
 namespace inverser {
+    enum Action {
+        MatrixInverse = 1,
+        SolveSOLE = 2,
+    };
+
     double** GenIdentityMatrix(int size);
-    double** InverseMatrix(double** matrix, int n);
+    double** FindInverseMatrix(double** matrix, int n);
     void PrintMatrix(double** matrix, int n);
-    void Solve();
+    void StartApplication();
 }

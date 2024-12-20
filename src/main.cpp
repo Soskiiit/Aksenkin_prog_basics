@@ -3,6 +3,6 @@
 #include "matrixInverser.h"
 
 int main() {
-    inverser::Solve();
+    inverser::StartApplication();
     return 0;
 }
