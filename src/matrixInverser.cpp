@@ -2,10 +2,11 @@
 
 #include <iomanip>
 #include <iostream>
+#include <unordered_map>
 
 
 namespace inverser {
-    const int kColumnWidth = 8;
+    const int kColumnWidth = 4;
 
     double** GenIdentityMatrix(int size) {
         double** identity = new double*[size];
@@ -64,6 +65,12 @@ namespace inverser {
         }
     }
 
+    void PrintRoots(double* roots, int n) {
+        for (int i = 0; i < n; ++i) {
+            std::cout << "x" << i + 1 << " = " << roots[i] << std::endl;
+        }
+    }
+
     void DeleteMatrix(double** matrix, int n) {
         for (int i = 0; i < n; ++i) {
             delete[] matrix[i];
@@ -106,7 +113,7 @@ namespace inverser {
         int n = 0;
         std::cout << "Введите размер матрицы, к которой нужно найти обратную: ";
         std::cin >> n;
-        std::cout << "Введите матрицу NxN" << std::endl;
+        std::cout << "Введите матрицу " << n << "x" << n << std::endl;
         double** matrix = new double*[n];
         for (int i = 0; i < n; ++i) {
             matrix[i] = new double[n] {0};
@@ -150,9 +157,8 @@ namespace inverser {
                 roots[i] += inverseMatrix[i][j] * answers[j];
             }
         }
-        for (int i = 0; i < n; ++i) {
-            std::cout << roots[i] << " ";
-        }
+        std::cout << "Система уравнений имеет следующие корни:" << std::endl;
+        PrintRoots(roots, n);
         delete[] answers;
         delete[] roots;
         DeleteMatrix(matrix, n);
